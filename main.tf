@@ -4,12 +4,12 @@ terraform {
     organization = "hashicorp-team-da-beta"
 
     workspaces {
-      name = "consul-gateways-azure"
+      name = "consul-service-mesh"
     }
   }
 }
 
-resource "azurerm_resource_group" "pong" {
+resource "azurerm_resource_group" "aks_rg" {
   name     = var.project
   location = var.region
 
@@ -21,23 +21,36 @@ resource "azurerm_resource_group" "pong" {
 module "aks" {
   source = "./aks"
 
-  project = var.project
-  resource_group = azurerm_resource_group.pong.name
-  location = azurerm_resource_group.pong.location
+  project        = var.project
+  resource_group = azurerm_resource_group.aks_rg.name
+  location       = azurerm_resource_group.aks_rg.location
 
   client_nodes = 3
 
   # Azure client id and secret to allow K8s to create loadbalancers
-  client_id = var.client_id
+  client_id     = var.client_id
   client_secret = var.client_secret
 }
 
 module "vms" {
   source = "./vms"
 
+  project        = var.project
+  resource_group = azurerm_resource_group.aks_rg.name
+  location       = azurerm_resource_group.aks_rg.location
+
+  consul_primary_addr = module.aks.consul_public_ip
+}
+
+module "digitalocean" {
+  source = "./digitalocean"
+
   project = var.project
-  resource_group = azurerm_resource_group.pong.name
-  location = azurerm_resource_group.pong.location
+  region  = var.digitalocean_region
+
+  client_nodes = 3
+
+  digitalocean_token = var.digitalocean_token
 
   consul_primary_addr = module.aks.consul_public_ip
 }

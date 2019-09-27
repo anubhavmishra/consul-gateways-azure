@@ -109,7 +109,7 @@ Description=Payment
 After=syslog.target network.target
 
 [Service]
-Environment="MESSAGE=payment successful"
+Environment="MESSAGE=payment successful from vms"
 Environment=NAME=Payment
 Environment=UPSTREAM_URIS=http://localhost:9091
 ExecStart=/usr/local/bin/fake-service

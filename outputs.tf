@@ -1,5 +1,9 @@
-output "k8s_config" {
+output "k8s_config_aks" {
   value = module.aks.k8s_config
+}
+
+output "k8s_config_digitalocean" {
+  value = module.digitalocean.k8s_config
 }
 
 output "aks_consul_addr" {
@@ -22,6 +26,6 @@ output "vms_payment_addr" {
   value = module.vms.payment_addr
 }
 
-output "vms_private_key" { 
+output "vms_private_key" {
   value = module.vms.private_key
 }

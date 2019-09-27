@@ -10,9 +10,14 @@ else
   CLIP="| pbcopy"
 fi
 
-function get_k8s_config {
-  terraform output k8s_config > kube_config.yml
-  export KUBECONFIG=$(pwd)/kube_config.yml
+function get_k8s_config_aks {
+  terraform output k8s_config_aks > kube_config_aks.yml
+  export KUBECONFIG=$(pwd)/kube_config_aks.yml
+}
+
+function get_k8s_config_digitalocean {
+  terraform output k8s_config_digitalocean > kube_config_digitalocean.yml
+  export KUBECONFIG=$(pwd)/kube_config_digitalocean.yml
 }
 
 function get_private_key {

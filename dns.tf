@@ -7,7 +7,7 @@ provider "google" {
 data "google_project" "project" {}
 
 data "google_dns_managed_zone" "hashicorp_live" {
-  name        = "hashicorplive"
+  name = "hashicorplive"
 }
 
 resource "google_dns_record_set" "consul_azure" {

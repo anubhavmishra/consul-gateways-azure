@@ -8,5 +8,6 @@
 # .tfvars files
 *.tfvars
 env.sh
-kube_config.yml
+kube_config_aks.yml
+kube_config_digitalocean.yml
 server.pem
