@@ -3,6 +3,6 @@ name = "payment"
 
 failover = {
   "*" = {
-    datacenters = ["digitalocean", "vms"]
+    datacenters = ["dc2", "dc3"]
   }
 }

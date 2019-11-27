@@ -6,7 +6,7 @@ resource "kubernetes_config_map" "central_config" {
   data = {
     "web-defaults.hcl"              = file("${path.module}/consul_config/web-defaults.hcl")
     "payment-defaults.hcl"          = file("${path.module}/consul_config/payment-defaults.hcl")
-    "payment-failover-resolver.hcl" = file("${path.module}/consul_config/payment-failover-resolver.hcl")
+    "payment-failover-resolver.hcl" = file("${path.module}/consul_config/payment-vms-resolver.hcl")
     "currency-resolver.hcl"         = file("${path.module}/consul_config/currency-resolver.hcl")
     "currency-defaults.hcl"         = file("${path.module}/consul_config/currency-defaults.hcl")
   }

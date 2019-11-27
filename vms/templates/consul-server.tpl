@@ -14,8 +14,8 @@ cat << EOF > /etc/consul/config.hcl
 data_dir = "/tmp/"
 log_level = "DEBUG"
 
-datacenter = "vms"
-primary_datacenter = "aks"
+datacenter = "dc2"
+primary_datacenter = "dc1"
 
 server = true
 

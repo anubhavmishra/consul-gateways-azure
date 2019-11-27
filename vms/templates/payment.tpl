@@ -5,7 +5,7 @@ apt-get update && apt-get install -y unzip
 cd /tmp
 
 # Fetch Fake service
-wget https://github.com/nicholasjackson/fake-service/releases/download/v0.7.8/fake-service -O /usr/local/bin/fake-service
+wget https://github.com/nicholasjackson/fake-service/releases/download/v0.7.8/fake-service-linux -O /usr/local/bin/fake-service
 chmod +x /usr/local/bin/fake-service
 
 # Fetch Envoy
@@ -24,7 +24,7 @@ cat << EOF > /etc/consul/config.hcl
 data_dir = "/tmp/"
 log_level = "DEBUG"
 
-datacenter = "vms"
+datacenter = "dc2"
 
 bind_addr = "0.0.0.0"
 client_addr = "0.0.0.0"
@@ -50,6 +50,14 @@ cat << EOF > /etc/consul/config/payment.json
     "name": "payment",
     "id":"payment-vms",
     "port": 9090,
+    "checks": [
+       {
+        "id": "payment-vms",
+        "name": "HTTP API check",
+        "http": "http://localhost:9090/health",
+        "interval": "1s",
+        "timeout": "1s"
+    }],
     "connect": { 
       "sidecar_service": {
         "port": 20000,
@@ -120,7 +128,7 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
-chmod 644 /etc/systemd/system/pong.service
+chmod 644 /etc/systemd/system/payment.service
 
 systemctl daemon-reload
 systemctl start consul.service

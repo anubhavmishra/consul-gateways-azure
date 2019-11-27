@@ -3,5 +3,5 @@ name = "currency"
 
 redirect {
   service    = "currency"
-  datacenter = "aks"
+  datacenter = "dc1"
 }

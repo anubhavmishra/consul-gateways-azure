@@ -65,6 +65,16 @@ resource "kubernetes_deployment" "currency" {
               memory = "50Mi"
             }
           }
+
+          liveness_probe {
+            http_get {
+              path = "/health"
+              port = 9090
+            }
+
+            initial_delay_seconds = 1
+            period_seconds        = 2
+          }
         }
       }
     }

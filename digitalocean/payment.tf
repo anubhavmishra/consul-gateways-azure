@@ -9,7 +9,7 @@ resource "kubernetes_deployment" "payment" {
   }
 
   spec {
-    replicas = 2
+    replicas = 10
 
     selector {
       match_labels = {
@@ -61,6 +61,21 @@ resource "kubernetes_deployment" "payment" {
             value = "Payment"
           }
 
+          #       env {
+          #         name  = "ERROR_TYPE"
+          #         value = "http_error"
+          #       }
+
+          #       env {
+          #         name  = "ERROR_CODE"
+          #         value = "500"
+          #       }
+
+          #       env {
+          #         name  = "ERROR_RATE"
+          #         value = "0.5"
+          #       }
+
           resources {
             limits {
               cpu    = "0.5"
@@ -70,6 +85,16 @@ resource "kubernetes_deployment" "payment" {
               cpu    = "0.1"
               memory = "50Mi"
             }
+          }
+
+          liveness_probe {
+            http_get {
+              path = "/health"
+              port = 9090
+            }
+
+            initial_delay_seconds = 1
+            period_seconds        = 2
           }
         }
       }

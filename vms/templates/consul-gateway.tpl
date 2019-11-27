@@ -18,7 +18,7 @@ cat << EOF > /etc/consul/config.hcl
 data_dir = "/tmp/"
 log_level = "DEBUG"
 
-datacenter = "vms"
+datacenter = "dc2"
 
 bind_addr = "0.0.0.0"
 client_addr = "0.0.0.0"

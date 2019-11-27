@@ -88,7 +88,7 @@ resource "helm_release" "consul" {
 
   set {
     name  = "global.datacenter"
-    value = "digitalocean"
+    value = "dc3"
   }
 
   set {
@@ -118,7 +118,7 @@ resource "helm_release" "consul" {
 
   set_string {
     name  = "server.extraConfig"
-    value = "\"{\\\"advertise_addr_wan\\\": \\\"${kubernetes_service.consul.load_balancer_ingress.0.ip}\\\"\\, \\\"retry_join_wan\\\": \\[\\\"${var.consul_primary_addr}\\\"\\]\\, \\\"primary_datacenter\\\": \\\"aks\\\"}\""
+    value = "\"{\\\"advertise_addr_wan\\\": \\\"${kubernetes_service.consul.load_balancer_ingress.0.ip}\\\"\\, \\\"retry_join_wan\\\": \\[\\\"${var.consul_primary_addr}\\\"\\]\\, \\\"primary_datacenter\\\": \\\"dc1\\\"}\""
   }
 
   set {
@@ -142,7 +142,7 @@ resource "helm_release" "consul" {
 
   set {
     name  = "global.imageK8S"
-    value = "nicholasjackson/consul-k8s-dev:latest"
+    value = "hashicorp/consul-k8s:0.9.4"
   }
 
   set {

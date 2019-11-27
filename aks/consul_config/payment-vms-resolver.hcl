@@ -3,7 +3,7 @@ name = "payment"
 
 redirect {
   service    = "payment"
-  datacenter = "vms"
+  datacenter = "dc2"
 }
 
 
