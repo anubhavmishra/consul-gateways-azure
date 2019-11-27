@@ -52,7 +52,7 @@ resource "kubernetes_deployment" "currency" {
 
           env {
             name  = "NAME"
-            value = "Currency on AKS"
+            value = "Currency"
           }
 
           resources {

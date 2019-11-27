@@ -1,40 +1,40 @@
-resource "kubernetes_deployment" "payment" {
+resource "kubernetes_deployment" "payment_gateway" {
   depends_on = [helm_release.consul]
 
   metadata {
-    name = "payment"
+    name = "payment-gateway"
     labels = {
-      app = "payment"
+      app = "payment-gateway"
     }
   }
 
   spec {
-    replicas = 2
+    replicas = 1
 
     selector {
       match_labels = {
-        app = "payment"
+        app = "payment-gateway"
       }
     }
 
     template {
       metadata {
         labels = {
-          app     = "payment"
+          app     = "payment-gateway"
           version = "v0.1"
         }
 
         annotations = {
           "consul.hashicorp.com/connect-inject"            = "true"
-          "consul.hashicorp.com/connect-service-upstreams" = "payment-gateway:9091"
-          "consul.hashicorp.com/connect-service-name"      = "payment"
+          "consul.hashicorp.com/connect-service-upstreams" = "currency:9091"
+          "consul.hashicorp.com/connect-service-name"      = "payment-gateway"
         }
       }
 
       spec {
         container {
           image = "nicholasjackson/fake-service:v0.7.8"
-          name  = "payment"
+          name  = "payment-gateway"
 
           port {
             name           = "http"
@@ -53,12 +53,12 @@ resource "kubernetes_deployment" "payment" {
 
           env {
             name  = "MESSAGE"
-            value = "payment successful from digitalocean."
+            value = "successfully used the payment gateway in digitalocean."
           }
 
           env {
             name  = "NAME"
-            value = "Payment"
+            value = "Payment Gateway"
           }
 
           resources {
