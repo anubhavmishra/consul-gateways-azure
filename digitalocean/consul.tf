@@ -66,8 +66,7 @@ resource "kubernetes_service" "consul" {
 provider "helm" {
   kubernetes {
     host                   = digitalocean_kubernetes_cluster.consul.endpoint
-    client_certificate     = "${base64decode(digitalocean_kubernetes_cluster.consul.kube_config.0.client_certificate)}"
-    client_key             = "${base64decode(digitalocean_kubernetes_cluster.consul.kube_config.0.client_key)}"
+    token                  = "${digitalocean_kubernetes_cluster.consul.kube_config.0.token}"
     cluster_ca_certificate = "${base64decode(digitalocean_kubernetes_cluster.consul.kube_config.0.cluster_ca_certificate)}"
   }
 
@@ -150,7 +149,7 @@ resource "helm_release" "consul" {
     name  = "meshGateway.enabled"
     value = true
   }
-  
+
   set {
     name  = "meshGateway.enableHealthChecks"
     value = false

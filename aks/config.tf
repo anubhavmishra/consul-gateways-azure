@@ -4,11 +4,11 @@ resource "kubernetes_config_map" "central_config" {
   }
 
   data = {
-    "web-defaults.hcl" = file("${path.module}/consul_config/web-defaults.hcl")
-    "payment-defaults.hcl" = file("${path.module}/consul_config/payment-defaults.hcl")
+    "web-defaults.hcl"              = file("${path.module}/consul_config/web-defaults.hcl")
+    "payment-defaults.hcl"          = file("${path.module}/consul_config/payment-defaults.hcl")
     "payment-failover-resolver.hcl" = file("${path.module}/consul_config/payment-failover-resolver.hcl")
-    "currency-resolver.hcl" = file("${path.module}/consul_config/currency-resolver.hcl")
-    "currency-defaults.hcl" = file("${path.module}/consul_config/currency-defaults.hcl")
+    "currency-resolver.hcl"         = file("${path.module}/consul_config/currency-resolver.hcl")
+    "currency-defaults.hcl"         = file("${path.module}/consul_config/currency-defaults.hcl")
   }
 }
 
@@ -26,10 +26,10 @@ resource "kubernetes_job" "central_config" {
           version = "v0.0.1"
         }
       }
-      spec{
+      spec {
         volume {
           name = kubernetes_config_map.central_config.metadata[0].name
-        
+
           config_map {
             name = kubernetes_config_map.central_config.metadata[0].name
           }
@@ -37,7 +37,7 @@ resource "kubernetes_job" "central_config" {
 
         container {
           image = "nicholasjackson/consul-envoy:v1.6.0-v0.10.0"
-      		name = "central-config"
+          name  = "central-config"
 
           env {
             name  = "CONSUL_HTTP_ADDR"
@@ -53,12 +53,12 @@ resource "kubernetes_job" "central_config" {
             name  = "CENTRAL_CONFIG_DIR"
             value = "/config"
           }
-          
-      		volume_mount {
-          	read_only = true  
+
+          volume_mount {
+            read_only  = true
             mount_path = "/config"
-            name = kubernetes_config_map.central_config.metadata[0].name
-      		}
+            name       = kubernetes_config_map.central_config.metadata[0].name
+          }
         }
       }
     }

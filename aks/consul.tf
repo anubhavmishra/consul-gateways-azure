@@ -150,7 +150,7 @@ resource "helm_release" "consul" {
     name  = "meshGateway.enabled"
     value = true
   }
-  
+
   set {
     name  = "meshGateway.enableHealthChecks"
     value = false

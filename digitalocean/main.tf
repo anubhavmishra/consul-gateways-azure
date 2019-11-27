@@ -6,7 +6,7 @@ provider "digitalocean" {
 resource "digitalocean_kubernetes_cluster" "consul" {
   name    = "${var.project}"
   region  = "${var.region}"
-  version = "1.15.3-do.2"
+  version = "${var.kubernetes_version}"
   tags    = ["consul"]
 
   node_pool {

@@ -1,7 +1,7 @@
 variable "project" {}
 
-variable "resource_group"{}
-variable "location"{}
+variable "resource_group" {}
+variable "location" {}
 
 variable "client_nodes" {}
 

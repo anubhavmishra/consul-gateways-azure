@@ -33,7 +33,7 @@ resource "kubernetes_deployment" "payment" {
 
       spec {
         container {
-          image = "nicholasjackson/fake-service:v0.4.1"
+          image = "nicholasjackson/fake-service:v0.7.8"
           name  = "payment"
 
           port {

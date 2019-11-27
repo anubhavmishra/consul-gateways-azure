@@ -3,7 +3,7 @@ variable "project" {
 }
 
 variable "region" {
-  default = "West US"
+  default = "South India"
 }
 
 variable "client_id" {}
@@ -16,12 +16,12 @@ variable "gcp_project" {
 }
 
 variable "gcp_region" {
-  default = "us-west1"
+  default = "asia-south1"
 }
 
-variable "domain" {
+variable "google_zone_name" {
   description = "Domain name for demos"
-  default     = "hashicorp.live"
+  default     = "livedemosxyz"
 }
 
 variable "google_credentials" {
@@ -33,5 +33,5 @@ variable "google_credentials" {
 variable "digitalocean_token" {}
 
 variable "digitalocean_region" {
-  default = "sfo2"
+  default = "blr1"
 }

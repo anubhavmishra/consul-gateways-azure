@@ -5,7 +5,7 @@ apt-get update && apt-get install -y unzip
 cd /tmp
 
 # Fetch Fake service
-wget https://github.com/nicholasjackson/fake-service/releases/download/v0.4.1/fake-service -O /usr/local/bin/fake-service
+wget https://github.com/nicholasjackson/fake-service/releases/download/v0.7.8/fake-service -O /usr/local/bin/fake-service
 chmod +x /usr/local/bin/fake-service
 
 # Fetch Envoy

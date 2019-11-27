@@ -1,13 +1,19 @@
 terraform {
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "hashicorp-team-da-beta"
-
-    workspaces {
-      name = "consul-service-mesh"
-    }
+  required_providers {
+    google = ">= 2.20"
   }
 }
+
+#terraform {
+# backend "remote" {
+#   hostname     = "app.terraform.io"
+#   organization = "mishracorp"
+#
+#   workspaces {
+#     name = "consul-service-mesh-gateways-demo"
+#   }
+# }
+#
 
 resource "azurerm_resource_group" "aks_rg" {
   name     = var.project

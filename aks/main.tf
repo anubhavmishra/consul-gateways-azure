@@ -4,11 +4,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = var.resource_group
   dns_prefix          = var.project
 
-  agent_pool_profile {
+  default_node_pool {
     name            = "default"
-    count           = var.client_nodes
+    node_count      = var.client_nodes
     vm_size         = "Standard_D1_v2"
-    os_type         = "Linux"
     os_disk_size_gb = 30
   }
 

@@ -18,7 +18,7 @@ resource "azurerm_network_interface" "payment" {
     name                          = "testconfiguration1"
     subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.payment.id
+    public_ip_address_id          = azurerm_public_ip.payment.id
   }
 }
 
@@ -26,14 +26,14 @@ data "template_file" "payment" {
   template = file("${path.module}/templates/payment.tpl")
   vars = {
     consul_cluster_addr = azurerm_network_interface.consul_server.private_ip_address
-    advertise_addr = azurerm_network_interface.payment.private_ip_address
+    advertise_addr      = azurerm_network_interface.payment.private_ip_address
   }
 }
 
 resource "azurerm_virtual_machine" "payment" {
   name                  = "${var.project}-payment"
-  location            = var.location
-  resource_group_name = var.resource_group
+  location              = var.location
+  resource_group_name   = var.resource_group
   network_interface_ids = ["${azurerm_network_interface.payment.id}"]
   vm_size               = "Standard_DS1_v2"
 
@@ -60,14 +60,14 @@ resource "azurerm_virtual_machine" "payment" {
     computer_name  = "payment"
     admin_username = "ubuntu"
     admin_password = "Password1234!"
-    custom_data = data.template_file.payment.rendered 
+    custom_data    = data.template_file.payment.rendered
   }
 
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
       key_data = tls_private_key.vms.public_key_openssh
-      path = "/home/ubuntu/.ssh/authorized_keys"
+      path     = "/home/ubuntu/.ssh/authorized_keys"
     }
   }
 

@@ -18,7 +18,7 @@ resource "azurerm_network_interface" "consul_server" {
     name                          = "testconfiguration1"
     subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.consul_server.id
+    public_ip_address_id          = azurerm_public_ip.consul_server.id
   }
 }
 
@@ -26,15 +26,15 @@ data "template_file" "consul_server" {
   template = file("${path.module}/templates/consul-server.tpl")
   vars = {
     primary_cluster_addr = var.consul_primary_addr
-    wan_addr = azurerm_public_ip.consul_server.ip_address
-    advertise_addr = azurerm_network_interface.consul_server.private_ip_address
+    wan_addr             = azurerm_public_ip.consul_server.ip_address
+    advertise_addr       = azurerm_network_interface.consul_server.private_ip_address
   }
 }
 
 resource "azurerm_virtual_machine" "consul_server" {
   name                  = "${var.project}-consul-server"
-  location            = var.location
-  resource_group_name = var.resource_group
+  location              = var.location
+  resource_group_name   = var.resource_group
   network_interface_ids = ["${azurerm_network_interface.consul_server.id}"]
   vm_size               = "Standard_DS1_v2"
 
@@ -61,14 +61,14 @@ resource "azurerm_virtual_machine" "consul_server" {
     computer_name  = "consul-server"
     admin_username = "ubuntu"
     admin_password = "Password1234!"
-    custom_data = data.template_file.consul_server.rendered 
+    custom_data    = data.template_file.consul_server.rendered
   }
 
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
       key_data = tls_private_key.vms.public_key_openssh
-      path = "/home/ubuntu/.ssh/authorized_keys"
+      path     = "/home/ubuntu/.ssh/authorized_keys"
     }
   }
 
