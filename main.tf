@@ -13,7 +13,7 @@ terraform {
 #     name = "consul-service-mesh-gateways-demo"
 #   }
 # }
-#
+#}
 
 resource "azurerm_resource_group" "aks_rg" {
   name     = var.project
