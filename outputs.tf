@@ -14,7 +14,11 @@ output "aks_web_addr" {
   value = module.aks.web_public_ip
 }
 
-output "vms_consul_server_addr" {
+output "aks_consul_gateway_addr" {
+  value = module.aks.consul_gateway_addr
+}
+
+output "vms_consul_addr" {
   value = module.vms.consul_server_addr
 }
 
@@ -28,4 +32,12 @@ output "vms_payment_addr" {
 
 output "vms_private_key" {
   value = module.vms.private_key
+}
+
+output "digitalocean_consul_addr" {
+  value = module.digitalocean.consul_public_ip
+}
+
+output "digitalocean_consul_gateway_addr" {
+  value = module.digitalocean.consul_gateway_addr
 }
