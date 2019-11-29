@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get update && apt-get install -y unzip
+apt-get update && apt-get install -y unzip dnsmasq
 
 cd /tmp
 
@@ -130,7 +130,18 @@ EOF
 
 chmod 644 /etc/systemd/system/payment.service
 
+# Configure dnsmasq
+mkdir -p /etc/dnsmasq.d
+cat > /etc/dnsmasq.d/10-consul <<'EOF'
+server=/consul/127.0.0.1#8600
+EOF
+
+systemctl enable dnsmasq
+
 systemctl daemon-reload
 systemctl start consul.service
 systemctl start consul-envoy.service
 systemctl start payment.service
+systemctl start dnsmasq
+# Force restart for adding consul dns
+systemctl restart dnsmasq

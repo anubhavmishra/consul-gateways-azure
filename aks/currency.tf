@@ -55,6 +55,25 @@ resource "kubernetes_deployment" "currency" {
             value = "Currency"
           }
 
+          env {
+            name = "TRACING_DATADOG"
+            value_from {
+              field_ref {
+                field_path = "status.hostIP"
+              }
+            }
+          }
+
+          env {
+            name = "DD_API_KEY"
+            value_from {
+              secret_key_ref {
+                name = "datadog-secret"
+                key  = "api-key"
+              }
+            }
+          }
+
           resources {
             limits {
               cpu    = "0.5"

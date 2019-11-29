@@ -26,7 +26,7 @@ function get_private_key {
 }
 
 function ssh_consul_server {
-  ssh -o StrictHostKeyChecking=no -i ./server.pem ubuntu@$(terraform output vms_consul_server_addr)
+  ssh -o StrictHostKeyChecking=no -i ./server.pem ubuntu@$(terraform output vms_consul_addr)
 }
 
 function ssh_consul_gateway {

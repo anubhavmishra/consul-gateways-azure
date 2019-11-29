@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get update && apt-get install -y unzip
+apt-get update && apt-get install -y unzip dnsmasq
 
 # Fetch Consul
 cd /tmp
@@ -69,3 +69,14 @@ until consul members; do
 done
 
 consul intention create -deny '*' '*'
+
+# Configure dnsmasq
+mkdir -p /etc/dnsmasq.d
+cat > /etc/dnsmasq.d/10-consul <<'EOF'
+server=/consul/127.0.0.1#8600
+EOF
+
+systemctl enable dnsmasq
+systemctl start dnsmasq
+# Force restart for adding consul dns
+systemctl restart dnsmasq
