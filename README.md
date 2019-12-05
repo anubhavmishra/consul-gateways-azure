@@ -75,6 +75,12 @@ clusters:
 .....
 ```
 
+## Accessing the web service using the browser
+
+```bash
+open http://$(terraform output aks_web_addr)
+```
+
 ## Output variables
 
 The Terraform output variables contain the details of the various loadbalancers, public IP addresses and Kubernetes config which can be
