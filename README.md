@@ -54,7 +54,26 @@ can't guarantee that exactly these actions will be performed if
 "terraform apply" is subsequently run.
 ```
 
-Run `terraform apply` to create the infrastructure.
+Run `terraform apply` to create the infrastructure. This operation will take about 10-12 mins.
+
+Expected output.
+
+```bash
+Apply complete! Resources: x added, 2 changed, 0 destroyed.
+
+Outputs:
+
+aks_consul_addr = 13.71.118.185
+aks_consul_gateway_addr = 104.211.245.65
+aks_web_addr = 104.211.219.93
+digitalocean_consul_addr = 68.183.245.35
+digitalocean_consul_gateway_addr = 68.183.245.24
+k8s_config_aks = apiVersion: v1
+clusters:
+- cluster:
+
+.....
+```
 
 ## Output variables
 

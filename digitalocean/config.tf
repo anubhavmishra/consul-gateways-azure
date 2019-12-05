@@ -5,6 +5,7 @@ resource "kubernetes_config_map" "central_config" {
 
   data = {
     "payment-gateway-defaults.hcl" = file("${path.module}/consul_config/payment-gateway-defaults.hcl")
+    "payment-gateway-resolver.hcl" = file("${path.module}/consul_config/payment-gateway-resolver.hcl")
   }
 }
 
