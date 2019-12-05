@@ -24,7 +24,7 @@ variable "google_zone_name" {
   default     = "livedemosxyz"
 }
 
-variable "google_credentials" {
+variable "google_credentials_file" {
   type = "string"
 }
 

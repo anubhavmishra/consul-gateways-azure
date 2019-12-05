@@ -1,7 +1,7 @@
 provider "google" {
   project     = "${var.gcp_project}"
   region      = "${var.gcp_region}"
-  credentials = "${var.google_credentials}"
+  credentials = "${file(var.google_credentials_file)}"
 }
 
 data "google_project" "project" {}

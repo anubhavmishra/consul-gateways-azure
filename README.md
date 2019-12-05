@@ -1,16 +1,19 @@
-# Payments on the Cloud using Consul Service Mesh and Microsoft Azure
+# HashiCorp Consul Service Mesh - Multi Cloud
 
-This Terraform code configures two Consul Datacenters, one running in Kubernetes and the other on Virtual Machines in Microsoft Azure.
+Terraform config to create multiple Consul datacenters in Azure Kubernetes Service (AKS), DigitalOcean Kubernetes Service, and VMs on Azure to showcase Multi-Cloud and L7 Features in Consul
 
-![](/images/gateways.png)
+![](/images/consul-service-mesh-gateway-multi-cloud-picture.png)
 
-The two Datacenters are federated together and service traffic is routed using Consul Gateways.
+The three datacenters are federated together and service traffic is routed using Consul Gateways.
 
 Terraform Version: 0.12.7 +
 
+**Note: This project is not production ready and is meant to showcase HashiCorp Consul's Service Mesh features.**
+
 ## Environment variables
 
-Before running `terraform plan` or `apply` configure the following environment variables to your Azure account secrets
+Before running `terraform plan` or `apply` configure the following environment variables to allow Terraform
+to make API calls to Azure and DigitalOcean.
 
 ```
 export ARM_CLIENT_ID="xxx-xxx-x-x-x-x-x-xxxx-"
@@ -18,13 +21,40 @@ export ARM_CLIENT_SECRET="x-x-x-xxxx--xxx--x-x-xx"
 export ARM_SUBSCRIPTION_ID="xx-x--xx-xxx-xxx-x-x"
 export ARM_TENANT_ID="xxx-xx-xx-x"
 
+export TF_VAR_digitalocean_token="abcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh"
 export TF_VAR_client_id="${ARM_CLIENT_ID}"
 export TF_VAR_client_secret="${ARM_CLIENT_SECRET}"
 ```
 
 ## Creating infrastructure
 
-You can then run `terraform apply` to create the infrastructure
+Run `terraform plan`.
+
+```bash
+terraform plan
+
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+data.google_project.project: Refreshing state...
+data.google_dns_managed_zone.livedemos_xyz: Refreshing state...
+
+------------------------------------------------------------------------
+
+
+.....
+
+Plan: 40 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+```
+
+Run `terraform apply` to create the infrastructure.
 
 ## Output variables
 
